@@ -1,8 +1,8 @@
 select
     "text"
 from
-  :location m
-ORDER BY
-  COSINE_SIM(m.embedding, :question_embedding)
-DESC
-LIMIT 3
+    :location m
+order by
+    COSINE_SIM(m.embedding, :question_embedding)
+desc
+limit 3

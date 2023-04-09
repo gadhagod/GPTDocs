@@ -1,12 +1,12 @@
 from sys import argv
 from time import sleep
-from gpt import Embeddings, Completions
+from gpt import Embeddings
 from database import Db
 from scraper import RocksetDocs
+from server import Server
 
 db = Db()
 embeddings = Embeddings()
-completions = Completions()
 
 def train():
     print("Crawling website...")
@@ -14,27 +14,21 @@ def train():
 
     print("Adding embeddings to database...")
     i = 1
-    sectionsNum = len(page.sections)
+    sections_num = len(page.sections)
     for section in page.sections:
         sleep(0.5) # because of openai rate limiting
-        embeddingData = embeddings.create(section)
-        if "data" not in embeddingData.keys():
-            raise Exception(embeddingData["error"]["message"])
-        db.addEmbeddings(embeddingData, text=section)
-        print(f"Embeddings added: {i}/{sectionsNum}", end="\r")
+        embedding_data = embeddings.create(section)
+        if "data" not in embedding_data.keys():
+            raise Exception(embedding_data["error"]["message"])
+        db.add_embeddings(embedding_data, text=section)
+        print(f"Embeddings added: {i}/{sections_num}", end="\r")
         i = i + 1
         
-    print(f"\nAll {sectionsNum} embeddings generated from {page} added to {db.workspace}.{db.collection}")
-
-def ask(question):
-    if question:
-        embedding = embeddings.create(question)["data"][0]["embedding"]
-        context = db.getContext(embedding)
-        print(completions.create(question, context)["choices"][0]["text"])
-        #completions.create(question, context)["choices"][0]["text"]
+    print(f"\nAll {sections_num} embeddings generated from {page} added to {db.workspace}.{db.collection}")
 
 if argv[-1] == "--train":
     train()
 else:
-    while True:
-        ask(input("Question: "))
+    app = Server(db, embeddings)
+    if __name__ == "__main__":
+        app.run()

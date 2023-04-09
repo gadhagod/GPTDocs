@@ -12,9 +12,9 @@ class Page():
             self.sections.append(start.get_text())
         except AttributeError:
             return
-        self.addSection(start)
+        self.add_section(start)
     
-    def addSection(self, start):    
+    def add_section(self, start):    
         curr_section = ""
         for elem in start.next_siblings:
             if elem.name == "h2" or elem.name == "h3":
@@ -28,12 +28,12 @@ class RocksetDocs():
     def __init__(self):
         self.url = "https://rockset.com/docs"
         soup = BeautifulSoup(get(self.url).text, "html.parser")
-        sidebarItems = soup.find_all("a", {"class": lambda value: value and value.startswith("Sidebar__Item")})
-        for i in range(len(sidebarItems)):
-            sidebarItems[i] = f"https://rockset.com{sidebarItems[i]['href']}"
+        sidebar_items = soup.find_all("a", {"class": lambda value: value and value.startswith("Sidebar__Item")})
+        for i in range(len(sidebar_items)):
+            sidebar_items[i] = f"https://rockset.com{sidebar_items[i]['href']}"
         self.sections = []
-        for pageUrl in sidebarItems:
-            self.sections = self.sections + Page(pageUrl).sections
+        for page_url in sidebar_items:
+            self.sections = self.sections + Page(page_url).sections
             
     def __str__(self):
         return self.url
