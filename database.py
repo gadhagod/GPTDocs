@@ -38,11 +38,10 @@ class Db():
                 workspace=self.workspace
             )
         except KeyError as e:
-            print(embeddings)
             raise e
     
-    def getClosestResponseText(self, question_embedding):
-        return self.queries.execute("getAnswer", {
+    def getContext(self, question_embedding):
+        return [i["text"] for i in self.queries.execute("getAnswer", {
             "location": f"{self.workspace}.{self.collection}",
             "question_embedding": question_embedding
-        })[0]["text"]
+        })][0]

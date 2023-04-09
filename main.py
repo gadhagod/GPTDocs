@@ -1,11 +1,12 @@
 from sys import argv
 from time import sleep
-from gpt import Embeddings
+from gpt import Embeddings, Completions
 from database import Db
 from scraper import RocksetDocs
 
 db = Db()
 embeddings = Embeddings()
+completions = Completions()
 
 def train():
     page = RocksetDocs()
@@ -22,11 +23,15 @@ def train():
 
 def ask(question):
     embedding = embeddings.create(question)["data"][0]["embedding"]
-    print(db.getClosestResponseText(embedding))    
+    context = db.getContext(embedding)
+    return context
+    #print("\n\n\n".join(context))
+    #exit()
+    #return completions.create(question, context)["choices"][0]["text"]
 
 if argv[-1] == "--train":
     train()
 else:
     #train()
     while True:
-        ask(input("Question: "))
+        print(ask(input("Question: ")))
