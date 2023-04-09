@@ -4,7 +4,15 @@ from gpt import Embeddings
 from database import Db
 from scraper import RocksetDocs
 from server import Server
+from config import config
+from os import getenv
 
+if __name__ != "__main__": # deployment
+    config["openai"]["api_key"] = getenv("OPENAI_API_KEY")
+    config["rockset"]["api_key"] = getenv("ROCKSET_API_KEY")
+    config["rockset"]["collection"] = getenv("ROCKSET_COLLECTION")
+    config["rockset"]["workspace"] = getenv("ROCKSET_WORKSPACE")
+        
 db = Db()
 embeddings = Embeddings()
 
