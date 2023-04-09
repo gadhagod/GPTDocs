@@ -26,10 +26,14 @@ class Page():
                 
 class RocksetDocs():
     def __init__(self):
-        soup = BeautifulSoup(get("https://rockset.com/docs").text, "html.parser")
+        self.url = "https://rockset.com/docs"
+        soup = BeautifulSoup(get(self.url).text, "html.parser")
         sidebarItems = soup.find_all("a", {"class": lambda value: value and value.startswith("Sidebar__Item")})
         for i in range(len(sidebarItems)):
             sidebarItems[i] = f"https://rockset.com{sidebarItems[i]['href']}"
         self.sections = []
         for pageUrl in sidebarItems:
             self.sections = self.sections + Page(pageUrl).sections
+            
+    def __str__(self):
+        return self.url

@@ -44,4 +44,4 @@ class Db():
         return [i["text"] for i in self.queries.execute("getAnswer", {
             "location": f"{self.workspace}.{self.collection}",
             "question_embedding": question_embedding
-        })][0]
+        })]

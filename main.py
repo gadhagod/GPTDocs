@@ -9,29 +9,32 @@ embeddings = Embeddings()
 completions = Completions()
 
 def train():
+    print("Crawling website...")
     page = RocksetDocs()
 
     print("Adding embeddings to database...")
     i = 1
     sectionsNum = len(page.sections)
     for section in page.sections:
-        sleep(1) # because of openai rate limiting
+        sleep(0.5) # because of openai rate limiting
         embeddingData = embeddings.create(section)
+        if "data" not in embeddingData.keys():
+            raise Exception(embeddingData["error"]["message"])
         db.addEmbeddings(embeddingData, text=section)
-        print(f"{i}/{sectionsNum}")
+        print(f"Embeddings added: {i}/{sectionsNum}", end="\r")
         i = i + 1
+        
+    print(f"\nAll {sectionsNum} embeddings generated from {page} added to {db.workspace}.{db.collection}")
 
 def ask(question):
-    embedding = embeddings.create(question)["data"][0]["embedding"]
-    context = db.getContext(embedding)
-    return context
-    #print("\n\n\n".join(context))
-    #exit()
-    #return completions.create(question, context)["choices"][0]["text"]
+    if question:
+        embedding = embeddings.create(question)["data"][0]["embedding"]
+        context = db.getContext(embedding)
+        print(completions.create(question, context)["choices"][0]["text"])
+        #completions.create(question, context)["choices"][0]["text"]
 
 if argv[-1] == "--train":
     train()
 else:
-    #train()
     while True:
-        print(ask(input("Question: ")))
+        ask(input("Question: "))

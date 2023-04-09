@@ -5,4 +5,4 @@ from
 ORDER BY
   COSINE_SIM(m.embedding, :question_embedding)
 DESC
-LIMIT 1
+LIMIT 3

@@ -33,8 +33,8 @@ class Completions(Api):
         
     def create(self, question, context):
         return self.make_post({
-            "prompt": f"Answer the question based on the context below, and if the question can't be answered based on the context, say \"I don't know\"\n\nContext: {' '.join(context)}\n\n---\n\nQuestion: {question}\nAnswer:",
+            "prompt": f"Answer the question based on the context given. Context: \"{' '.join(context)}\" \n\n---\n\nQuestion: {question}\nAnswer:",
             "model": "ada",
-            "max_tokens": 500,
-            "temperature": 0
+            "max_tokens": config["openai"]["max_tokens"],
+            "temperature": config["openai"]["temperature"]
         })
