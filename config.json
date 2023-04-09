@@ -1,0 +1,12 @@
+{
+    "openai": {
+        "api_key": "sk-",
+        "temperature": 0.8,
+        "max_tokens": 200
+    },
+    "rockset": {
+        "workspace": "commons",
+        "collection": "",
+        "api_key": ""
+    }
+}
