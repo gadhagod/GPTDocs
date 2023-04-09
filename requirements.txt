@@ -19,9 +19,6 @@ Automat==22.10.0
 autopep8==1.5.7
 Babel==2.9.0
 backcall==0.2.0
-bbc-feeds==2.0
-BBCHeadlines==4.1
-BBCNews==0.4
 beautifulsoup4==4.9.1
 bidict==0.21.2
 bleach==3.1.5
