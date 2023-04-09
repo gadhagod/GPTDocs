@@ -45,7 +45,6 @@ contextvars==2.4
 countryinfo==0.1.2
 covid-tracking-project==0.1
 cryptography==40.0.1
-cssselect==1.1.0
 dataclasses==0.8
 dateparser==1.0.0
 DateTimeRange==1.0.0
