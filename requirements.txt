@@ -21,3 +21,4 @@ SQLAlchemy==1.4.28
 texttable==1.6.4
 urllib3==1.26.7
 Werkzeug==2.0.2
+bs4==0.0.1
