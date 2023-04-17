@@ -33,7 +33,6 @@ class Completions(Api):
         
     def create(self, question, context):
         context_str = '\n\n###\n\n'.join(context)
-        print(context_str)
         return self.make_post({
             "prompt": f"Answer the question based on the context given. Context: {context_str}\n\nQuestion: {question}\n",
             "model": "ada",

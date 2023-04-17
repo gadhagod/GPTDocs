@@ -37,10 +37,8 @@ class SiteSpider(Spider):
         self.embeddings = embeddingsApi
         self.db = db
         self.is_allowed = is_allowed
-        self.is_skipped = is_skipped
 
     def parse(self, response):
-        print(response.url)
         if response.url not in SiteSpider.linkss and self.is_allowed(response.url):
             SiteSpider.linkss.append(response.url)
             
