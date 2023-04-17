@@ -4,7 +4,7 @@ from requests import get
 from scrapy import Spider, crawler
 from gpt import Embeddings
 from database import Db
-from config import config, is_allowed, is_skipped
+from config import config, is_allowed
 
 class Page():
     def __init__(self, url):
@@ -33,7 +33,7 @@ class SiteSpider(Spider):
     linkss = []
     #custom_settings = {"LOG_LEVEL": "INFO"}
     
-    def __init__(self, embeddingsApi, db, is_allowed, is_skipped):
+    def __init__(self, embeddingsApi, db, is_allowed):
         self.embeddings = embeddingsApi
         self.db = db
         self.is_allowed = is_allowed
@@ -41,7 +41,7 @@ class SiteSpider(Spider):
 
     def parse(self, response):
         print(response.url)
-        if response.url not in SiteSpider.linkss and self.is_allowed(response.url) and not self.is_skipped(response.url):
+        if response.url not in SiteSpider.linkss and self.is_allowed(response.url):
             SiteSpider.linkss.append(response.url)
             
             page = Page(response.url)
@@ -70,6 +70,5 @@ def scrape(embeddings, db):
         embeddingsApi=Embeddings(), 
         db=Db(),
         is_allowed=is_allowed,
-        is_skipped=is_skipped
     )
     process.start()
