@@ -33,7 +33,7 @@ Create an OpenAI [API key](https://platform.openai.com/account/api-keys) and pla
 }
 ```
 
-Now, you are ready to test the project. Skip to [#training] if you want to test the project on GitHub documentation. 
+Now, you are ready to test the project. Skip to [training](#training) if you want to test the project on GitHub documentation. 
 
 However, if you want to crawl a different site, you must configure the crawler.
 
