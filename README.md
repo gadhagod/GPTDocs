@@ -48,9 +48,3 @@ python3 main.py --train
 ```bash
 python3 main.py
 ```
-
-## TODO
-
-* Target configuration
-* Better scraping (with [scrapy](https://scrapy.org/))
-* [Completion-generated responses](https://platform.openai.com/docs/guides/completion)

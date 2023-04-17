@@ -32,8 +32,10 @@ class Completions(Api):
         Api.__init__(self, "https://api.openai.com/v1/completions")
         
     def create(self, question, context):
+        context_str = '\n\n###\n\n'.join(context)
+        print(context_str)
         return self.make_post({
-            "prompt": f"Answer the question based on the context given. Context: \"{' '.join(context)}\" \n\n---\n\nQuestion: {question}\nAnswer:",
+            "prompt": f"Answer the question based on the context given. Context: {context_str}\n\nQuestion: {question}\n",
             "model": "ada",
             "max_tokens": config["openai"]["max_tokens"],
             "temperature": config["openai"]["temperature"]

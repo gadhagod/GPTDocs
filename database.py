@@ -45,10 +45,6 @@ class Db():
             raise e
     
     def get_context(self, question_embedding):
-        print(Query(self.rs, "getAnswer").execute({
-            "location": f"{self.workspace}.{self.collection}",
-            "question_embedding": question_embedding
-        }))
         return [i["text"] for i in Query(self.rs, "getAnswer").execute({
             "location": f"{self.workspace}.{self.collection}",
             "question_embedding": question_embedding

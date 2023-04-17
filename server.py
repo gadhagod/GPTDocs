@@ -12,7 +12,6 @@ class Server(Flask):
 
     def get_answer(self):
         if "question" not in request.form.keys():
-            print(request.form.to_dict())
             return {"response": "", "message": "Please specify question"}, 400
         
         question = request.form["question"]

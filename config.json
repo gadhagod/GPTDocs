@@ -1,12 +1,14 @@
 {
     "openai": {
-        "api_key": "sk-",
-        "temperature": 0.8,
+        "api_key": "",
+        "temperature": 0.85,
         "max_tokens": 200
     },
     "rockset": {
-        "workspace": "commons",
+        "workspace": "",
         "collection": "",
         "api_key": ""
-    }
+    },
+    "start_urls": ["https://docs.github.com/en"],
+    "allowed_domains": ["docs.github.com"]
 }
